@@ -6,15 +6,17 @@ import time
 
 address = ('localhost', 8787)
 sock = socket.socket()
-complete = sp.run('docker run --rm -dp 8787:8787 exp/server', stdout=True, shell=True)
-print(complete.returncode)
+complete = sp.run('docker run --name=exp-logs -dp 8787:8787 exp/server', shell=True)
+# print(complete.returncode)
 # time.sleep(2)
 
 sock.connect(address)
+    
 send_msg(sock, 'test str'.encode())
 
 data = recv_msg(sock).decode()
 print(data)
-
-print('------')
-print(complete.stderr)
+print('_____________')
+sp.run('docker logs exp-logs', shell=True)
+print('_____________')
+sp.run('docker rm exp-logs',shell=True)
