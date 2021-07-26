@@ -6,12 +6,12 @@ import time
 
 address = ('localhost', 8787)
 # sock = socket.socket()
-complete = sp.run('docker run --name=exp-logs -dp 8787:8787 exp/server', shell=True)
+complete = sp.run('docker run --name=exp-logs -dp 8787:8787 exp/server-1', shell=True)
 # print(complete.returncode)
 # time.sleep(2)
 
 with socket.create_connection(address) as sock:
-    send_msg(sock, 'test str'.encode())
+    send_msg(sock, 'test str test str test str 1234567890ABCDEF/,..'.encode())
     data = recv_msg(sock).decode()
     print(data)
     # try:
