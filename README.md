@@ -11,10 +11,12 @@ Edu for docker compose and working with container status
 Желаемый эффект: изменение контента в хост-папке отображалось в папке контейнера вне зависимости от последовательности действий.
 Это необходимо было проверить в связи с ошибкой, описанной здесь:  
 https://github.com/docker/for-win/issues/5530  
-А также протестировать флаг <code>-v</code> вместо </code>--mount</code>. Видимо последний является устарвшим и не позволяет изменять контент связанной папки после запуска контейнера.
+А также протестировать флаг <code>-v</code> вместо <code>--mount</code>. Видимо последний является устарвшим и не позволяет изменять контент связанной папки после запуска контейнера.  
+Подробнее про <code>-v</code> можно прочитать здесь:  
+https://www.digitalocean.com/community/tutorials/how-to-share-data-between-the-docker-container-and-the-host
 
-## Как собрать образ
+## Как собрать образ (есть изменения)
 Находясь в папке с Dockerfile:  
-<code>docker build -t exp/server-1 .</code>
+<code>docker build -t exp/server-2 .</code>
 ## Запуск
 <code>python cl.py</code>
