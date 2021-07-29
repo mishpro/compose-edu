@@ -4,22 +4,22 @@ import os
 import subprocess as sp
 import time
 
+from checkdirs import checknmake, mkfiles
+
 address = ('localhost', 8787)
-# sock = socket.socket()
-complete = sp.run('docker run --name=exp-logs -dp 8787:8787 exp/server-1', shell=True)
-# print(complete.returncode)
-# time.sleep(2)
+script_dir = os.path.dirname(os.path.abspath(__file__))
+
+shared = checknmake(script_dir)
+complete = sp.run('docker run --name=exp-logs -dp 8787:8787 -v '+shared+':/_shared exp/server-2', shell=True)
+mkfiles(shared, 'file_')
+
 
 with socket.create_connection(address) as sock:
     send_msg(sock, 'test str test str test str 1234567890ABCDEF/,..'.encode())
-    data = recv_msg(sock).decode()
-    print(data)
-    # try:
-        # data = recv_msg(sock).decode()
-        # print(data)
-    # except ConnectionRefusedError:
-        # sock.connect(address)
-        # print('OK 2nd try')
+    data1 = recv_msg(sock).decode()
+    data2 = recv_msg(sock).decode()
+    print(data1, data2)
+
 print('_____________')
 sp.run('docker logs exp-logs', shell=True)
 print('_____________')
