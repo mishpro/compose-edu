@@ -1,0 +1,9 @@
+version: "3"
+services:
+    server:
+        build: .
+        command: python s.py
+        ports: 
+            - 8787:8787
+        volumes:
+            - ./shared/:/_shared/
